@@ -12,7 +12,10 @@ app.get('/login', (req, res) => {
 app.get('/about', (req, res) => {
     res.send('about page');
 });
+app.get('/help',(req,res)=>{
+    res.send('help page')
+});
 
-app.listen(3001, () => {
+app.listen(3002, () => {
     console.log('Server running on http://localhost:3001');
 });

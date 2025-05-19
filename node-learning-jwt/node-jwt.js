@@ -16,7 +16,7 @@ const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key';
 // Register API (POST)
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-    
+
     // Check if username or password is missing
     if (!username || !password) {
         return res.status(400).json({ message: 'Username and password are required.' });
@@ -33,7 +33,7 @@ app.post('/register', async (req, res) => {
 
     // Store the user (in production, use a database)
     users.push({ username, password: hashedPassword });
-    
+
     res.status(201).json({ message: 'User registered successfully' });
 });
 

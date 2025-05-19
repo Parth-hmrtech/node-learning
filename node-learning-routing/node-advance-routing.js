@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 const userRouter = express.Router();
 
-userRouter.get('/', (req, res) => {
+    userRouter.get('/', (req, res) => {
     res.send('All users');
 });
 
 userRouter.get('/:id', (req, res) => {
     res.send(`User ID: ${req.params.id}`);
 });
-
+    
 app.use('/users', userRouter);
 app.get('/products/:category/:id', (req, res) => {
     const { category, id } = req.params;

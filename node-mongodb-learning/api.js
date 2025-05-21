@@ -44,7 +44,7 @@ app.delete('/:name', async (req, res) => {
   let result = await data.deleteMany({ name: userName });
 
   if (result.deletedCount > 0) {
-        res.send({ message: 'User deleted successfully' });
+    res.send({ message: 'User deleted successfully' });
   } else {
     res.status(404).send({ message: 'User not found' });
   }

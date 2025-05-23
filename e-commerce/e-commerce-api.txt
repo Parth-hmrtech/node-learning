@@ -28,11 +28,11 @@ PUT /api/seller/products/:id - Update product
 DELETE /api/seller/products/:id - Delete product
 
 Inventory Management:
-GET /api/seller/inventory
-GET /api/seller/inventory/:productId
-POST /api/seller/inventory
-PUT /api/seller/inventory/:productId
-DELETE /api/seller/inventory/:productId
+GET /api/seller/inventory - Get all inventory items for the seller
+GET /api/seller/inventory/:productId - Get inventory details for a specific product
+POST /api/seller/inventory - Add new inventory stock for a product
+PUT /api/seller/inventory/:productId - Update stock quantity for a product
+DELETE /api/seller/inventory/:productId - Delete inventory record for a product
 
 Order Management:
 GET /api/seller/orders - List orders of their products
@@ -48,6 +48,9 @@ GET /api/seller/earnings - Get sellers total earnings and payout summary
 Review Management:
 GET /api/seller/reviews - View all reviews for sellers products
 DELETE /api/seller/reviews/:reviewId - seller removes a review
+
+____________________________________________________________________________________________________________________________________
+
 
 ==>Buyer<==
 
@@ -103,9 +106,8 @@ POST /api/payments/verify
 GET /api/payments/status/:orderId
 
 Reviews:
-POST /api/reviews                           # Add a review (by productId)
-POST /api/orders/:id/review                 # Add a review via order (optional shortcut)
-GET /api/reviews/:productId                # Get all reviews for a specific product
-DELETE /api/reviews/:id                       # Delete own review
-PUT /api/reviews/:id                       # (Optional) Edit own review
-GET /api/reviews/user/:userId              # (Optional) Get reviews by a specific user
+POST /api/orders/:id/review - Add a review via order 
+GET /api/reviews/:productId - Get all reviews for a specific product
+DELETE /api/reviews/:id - Delete own review
+PUT /api/reviews/:id - Edit own review
+GET /api/reviews/user/:userId - Get reviews by a specific user

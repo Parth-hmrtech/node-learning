@@ -1,18 +1,23 @@
-==>seller<== 
+SQL Database
 
-Authentication 
+users
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for each user
+first_name VARCHAR(100)
+last_name VARCHAR(100)
 email – VARCHAR(255) – User’s email (unique)
-password_hash – VARCHAR(255) – Hashed password
-full_name – VARCHAR(255) – User's full name
-phone_number – VARCHAR(20) – Contact phone number (optional)
-store_name – VARCHAR(255) – Seller’s store/business name
-address – TEXT – Seller’s business address
+password_hash – VARCHAR(255) – Hashed 
+role ENUM('seller', 'buyer') NOT NULL DEFAULT 'buyer',
+phone_number – VARCHAR(20) – Contact phone number 
 is_active – BOOLEAN – Whether account is active or not (default: true)
 created_at – TIMESTAMP – Timestamp when user was created
 updated_at – TIMESTAMP – Timestamp when profile was last updated
+deleted_at TIMESTAMP
 
-Category Management:
+
+
+categories 
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for each category
 seller_id – UUID / INT – Reference to the seller who owns the category
 name – VARCHAR(255) – Name of the category
@@ -20,18 +25,23 @@ description – TEXT – Description of the category (optional)
 is_active – BOOLEAN – Whether the category is active (default: true)
 created_at – TIMESTAMP – Timestamp when category was created
 updated_at – TIMESTAMP – Timestamp when category was last updated
+deleted_at – TIMESTAMP
 
-Sub-Category Management:
+
+sub_categories 
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for each subcategory
 category_id – UUID / INT – Reference to the parent category
-seller_id – UUID / INT – Reference to the seller who owns the subcategory
+seller_id – UUID / INT – Reference to the seller who owns the subcategory (cretaed_by)
 name – VARCHAR(255) – Name of the subcategory
 description – TEXT – Description of the subcategory (optional)
 is_active – BOOLEAN – Whether the subcategory is active (default: true)
 created_at – TIMESTAMP – Timestamp when subcategory was created
 updated_at – TIMESTAMP – Timestamp when subcategory was last updated
+deleted_at TIMESTAMPULT NOW()
 
-Product Management:
+products
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for each product
 seller_id – UUID / INT – Reference to the seller who owns the product
 category_id – UUID / INT – Reference to the product’s category
@@ -44,17 +54,19 @@ sku – VARCHAR(100) – Stock keeping unit identifier (optional)
 is_active – BOOLEAN – Whether the product is active (default: true)
 created_at – TIMESTAMP – Timestamp when product was created
 updated_at – TIMESTAMP – Timestamp when product was last updated
+deleted_at TIMESTAMPULT NOW()
 
-Inventory Management:
-id – UUID / INT (Primary Key) – Unique identifier for each inventory record
-seller_id – UUID / INT – Reference to the seller owning the inventory
-product_id – UUID / INT – Reference to the product
-stock_quantity – INT – Quantity of product available in inventory
-last_updated – TIMESTAMP – Timestamp when stock quantity was last updated
-created_at – TIMESTAMP – Timestamp when inventory record was created
+cart_item
+--------------------------------------------------------------------------------------
+id – UUID / INT (Primary Key) – Unique identifier for cart item
+buyer_id – UUID / INT – Reference to the buyer who owns the cart
+product_id – UUID / INT – Reference to the product added to cart
+quantity – INT – Quantity of the product in the cart
+added_at – TIMESTAMP – When the product was added to the cart
+updated_at – TIMESTAMP – When the cart item was last updated
 
-Order Management:
-Order Table
+orders
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique order identifier
 seller_id – UUID / INT – Reference to the seller owning the order
 buyer_id – UUID / INT – Reference to the buyer/customer
@@ -65,7 +77,8 @@ delivery_address – TEXT – Delivery address for the order
 created_at – TIMESTAMP – When the order record was created
 updated_at – TIMESTAMP – When the order record was last updated
 
-Order Items Table
+orders_item
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for the order item
 order_id – UUID / INT – Foreign key linking to the associated order
 product_id – UUID / INT – Foreign key linking to the ordered product
@@ -73,7 +86,15 @@ quantity – INT – Quantity of the product in the order
 price – DECIMAL(10, 2) – Price of the product at the time of ordering
 created_at – TIMESTAMP – Timestamp when the order item was created
 
-Payments Management:
+wishlist:
+--------------------------------------------------------------------------------------
+id – UUID / INT (Primary Key) – Unique wishlist entry identifier
+buyer_id – UUID / INT – Reference to the buyer owning the wishlist
+product_id – UUID / INT – Reference to the product added to wishlist
+added_at – TIMESTAMP – When the product was added to the wishlist
+
+payments 
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique payment identifier
 order_id – UUID / INT – Reference to the related order
 buyer_id – UUID / INT – Reference to the buyer making the payment
@@ -86,7 +107,8 @@ paid_at – TIMESTAMP – Timestamp when the payment was completed
 created_at – TIMESTAMP – Timestamp when the payment record was created
 updated_at – TIMESTAMP – Timestamp when the payment record was last updated
 
-Review Management:
+reviews
+--------------------------------------------------------------------------------------
 id – UUID / INT (Primary Key) – Unique identifier for the review
 order_id – UUID / INT – Reference to the related order (to ensure purchase)
 product_id – UUID / INT – Reference to the reviewed product
@@ -96,56 +118,3 @@ rating – INT – Numerical rating (typically 1 to 5)
 comment – TEXT – Optional textual review from the buyer
 created_at – TIMESTAMP – When the review was submitted
 updated_at – TIMESTAMP – Timestamp when review was last updated
-
-
-____________________________________________________________________________________________________________________________________
-
-
-==>Buyer<==
-Authentication:
-id – UUID / INT (Primary Key) – Unique identifier for each buyer
-email – VARCHAR(255) – Buyer’s email (unique)
-password_hash – VARCHAR(255) – Hashed password
-full_name – VARCHAR(255) – Buyer's full name
-phone_number – VARCHAR(20) – Buyer's contact number (optional)
-address – TEXT – Default shipping address (optional)
-is_active – BOOLEAN – Whether account is active (default: true)
-created_at – TIMESTAMP – When the account was created
-updated_at – TIMESTAMP – When the profile was last updated
-
-Products:
-GET API to fetch data from the Products table.
-
-Categories:
-GET API to fetch data from the Categories table.
-
-Subcategories:
-GET API to fetch data from the Subcategories table.
-
-Inventory:
-GET and POST APIs to interact with the Inventory table.
-GET: Fetch inventory data.
-POST: Request notification when an item is back in stock.
-
-Cart:
-id – UUID / INT (Primary Key) – Unique identifier for cart item
-buyer_id – UUID / INT – Reference to the buyer who owns the cart
-product_id – UUID / INT – Reference to the product added to cart
-quantity – INT – Quantity of the product in the cart
-added_at – TIMESTAMP – When the product was added to the cart
-updated_at – TIMESTAMP – When the cart item was last updated
-
-wishlist:
-id – UUID / INT (Primary Key) – Unique wishlist entry identifier
-buyer_id – UUID / INT – Reference to the buyer owning the wishlist
-product_id – UUID / INT – Reference to the product added to wishlist
-added_at – TIMESTAMP – When the product was added to the wishlist
-
-Orders:
-GET API to fetch data from the Orders table.
-
-Payments:
-GET API to fetch data from the Payments table.
-
-Reviews:
-GET API to fetch data from the Reviews table.

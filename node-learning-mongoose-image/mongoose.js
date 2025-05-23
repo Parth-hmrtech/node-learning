@@ -8,3 +8,4 @@ mongoose.connect('mongodb://localhost:27017/node', {
 }).catch((error) => {
     console.log("MongoDB connection error:", error);
 });
+    

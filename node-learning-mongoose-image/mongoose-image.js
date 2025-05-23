@@ -41,7 +41,7 @@ app.get('/show/:id', async (req, res) => {
 
         const html = `
       <!DOCTYPE html>
-      <html>
+      <html>    
       <head>
         <title>User Image</title>
       </head>

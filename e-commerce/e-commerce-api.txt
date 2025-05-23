@@ -1,0 +1,111 @@
+==>seller<== 
+
+Authentication 
+POST /api/auth/register - Register a new user
+POST /api/auth/login - Log in a use
+POST /api/auth/logout - Log out user
+GET /api/auth/profile - Get current user profile
+PUT /api/auth/profile - Update user profile
+
+Dashboard
+GET /api/seller/dashboard
+
+Category Management:
+POST /api/seller/categories
+PUT /api/seller/categories/:id
+DELETE /api/seller/categories/:
+ 
+Sub-Category Management:
+POST /api/subcategories - Create new subcategory
+PUT /api/subcategories/:id - Update subcategory
+DELETE /api/subcategories/:id - Delete subcategory
+
+Product Management:
+POST /api/seller/products - Add new product
+GET /api/seller/products - List sellers products
+GET /api/seller/products/:id - Get product detail
+PUT /api/seller/products/:id - Update product
+DELETE /api/seller/products/:id - Delete product
+
+Inventory Management:
+GET /api/seller/inventory
+GET /api/seller/inventory/:productId
+POST /api/seller/inventory
+PUT /api/seller/inventory/:productId
+DELETE /api/seller/inventory/:productId
+
+Order Management:
+GET /api/seller/orders - List orders of their products
+GET /api/seller/orders/:id - Order details
+PUT /api/seller/orders/:id/status - Update delivery status
+POST /api/seller/orders/:orderId/accept - Accept order & send email
+
+Payments Management:
+GET /api/seller/payments - View all received payments (for seller’s products)
+GET /api/seller/payments/:orderId - View payment details for a specific order
+GET /api/seller/earnings - Get sellers total earnings and payout summary
+
+Review Management:
+GET /api/seller/reviews - View all reviews for sellers products
+DELETE /api/seller/reviews/:reviewId - seller removes a review
+
+==>Buyer<==
+
+Authentication:
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/logout
+GET /api/auth/profile
+PUT /api/auth/profile
+
+Products:
+GET /api/products
+GET /api/products/:id
+GET /api/products/search?q=keyword - Product search
+
+Categories:
+GET /api/categories - List all categories
+GET /api/categories/:id - Get category by ID
+GET /api/categories/:id/products - Get products under a category
+GET /api/categories/:id/subcategories - Get subcategories under a category
+
+Subcategories:
+GET /api/subcategories - Get all subcategories
+GET /api/subcategories/:id - Get subcategory by ID
+GET /api/categories/:categoryId/subcategories - Get subcategories by category
+
+Inventory:
+GET /api/products/:productId/inventory - Check if product is in stock
+POST /api/inventory/subscribe-stock - Request notification when item is back in stock
+
+Cart:
+GET /api/cart
+POST /api/cart
+PUT /api/cart/:itemId
+DELETE /api/cart/:itemId
+DELETE /api/cart
+
+Wishlist:
+GET /api/wishlist
+POST /api/wishlist
+DELETE /api/wishlist/:productId
+
+Orders:
+POST /api/orders
+GET /api/orders
+GET /api/orders/:id
+PUT /api/orders/:id/cancel       # Request order cancellation (only if not shipped)
+PUT /api/orders/:id/update-address   # Update delivery address (before fulfillment)
+
+Payments:
+POST /api/payments/checkout
+POST /api/payments/verify
+GET /api/payments/status/:orderId
+
+Reviews:
+POST /api/reviews                           # Add a review (by productId)
+POST /api/orders/:id/review                 # Add a review via order (optional shortcut)
+GET /api/reviews/:productId                # Get all reviews for a specific product
+DELETE /api/reviews/:id                       # Delete own review
+PUT /api/reviews/:id                       # (Optional) Edit own review
+GET /api/reviews/user/:userId              # (Optional) Get reviews by a specific user
